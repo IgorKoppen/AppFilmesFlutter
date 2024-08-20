@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:movie_app/models/movie_model.dart';
 import 'package:movie_app/pages/top_rated/widgets/top_rated_movie.dart';
@@ -12,7 +14,7 @@ class TopRatedPage extends StatefulWidget {
 
 class _TopRatedPageState extends State<TopRatedPage> {
   ApiServices apiServices = ApiServices();
-  List<Movie> movies = [];
+  late Future<List<Movie>> movies;
 
   @override
   void initState() {
@@ -23,15 +25,30 @@ class _TopRatedPageState extends State<TopRatedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Top Rated Movies'),
-      ),
-      body: ListView.builder(
-        itemCount: movies.length,
-        itemBuilder: (context, index) {
-          return TopRatedMovie(movie: movies[index]);
-        },
-      ),
-    );
+        appBar: AppBar(
+          title: const Text('Top Rated Movies'),
+        ),
+        body: FutureBuilder(
+          future: movies,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (snapshot.hasError) {
+              return Center(
+                child: Text(snapshot.error.toString()),
+              );
+            }
+            List<Movie> moviesList = snapshot.data!;
+            return ListView.builder(
+              itemCount: moviesList.length,
+              itemBuilder: (context, index) {
+                return TopRatedMovie(movie: moviesList[index]);
+              },
+            );
+          },
+        ));
   }
 }

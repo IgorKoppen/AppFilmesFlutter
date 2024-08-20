@@ -12,32 +12,25 @@ class NowPlayingList extends StatefulWidget {
 
 class _NowPlayingListState extends State<NowPlayingList> {
   final PageController _pageController = PageController(viewportFraction: 0.9);
-
-  int currentPage = 1;
-  final maxItems = 5;
-
+  int currentPage = 0;
   @override
   Widget build(BuildContext context) {
-    final totalItems = widget.movies.length;
-
     return Column(
       children: [
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.5,
           child: PageView.builder(
-            physics: const ClampingScrollPhysics(),
-            controller: _pageController,
-            itemCount: totalItems > maxItems ? maxItems : totalItems,
-            itemBuilder: (context, index) {
-              final imgUrl = widget.movies[index].posterPath;
-              return CustomCardThumbnail(
-                imageAsset: imgUrl,
-              );
-            },
             onPageChanged: (int page) {
               setState(() {
                 currentPage = page;
               });
+            },
+            controller: _pageController,
+            itemCount: widget.movies.length,
+            itemBuilder: (context, index) {
+              return CustomCardThumbnail(
+                imageAsset: widget.movies[index].posterPath,
+              );
             },
           ),
         ),
@@ -50,15 +43,11 @@ class _NowPlayingListState extends State<NowPlayingList> {
   }
 
   List<Widget> _buildPageIndicators() {
-    final totalItems = widget.movies.length;
-    final int to = totalItems > maxItems ? maxItems : totalItems;
-
-    List<Widget> list = [];
-    for (int i = 0; i < to; i++) {
-      list.add(
-          i == currentPage ? _buildIndicator(true) : _buildIndicator(false));
+    List<Widget> indicator = [];
+    for (var i = 0; i < widget.movies.length; i++) {
+      indicator.add(_buildIndicator(i == currentPage));
     }
-    return list;
+    return indicator;
   }
 
   Widget _buildIndicator(bool isActive) {

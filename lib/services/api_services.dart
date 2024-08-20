@@ -1,9 +1,10 @@
 import 'package:movie_app/models/movie_model.dart';
 
 class ApiServices {
-  List<Movie> getMovies() {
+  Future<List<Movie>> getMovies() async {
     // Cria a lista de filmes
 
+    await Future.delayed(const Duration(seconds: 5));
     final movie1 = Movie(
       adult: false,
       backdropPath: "/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg",

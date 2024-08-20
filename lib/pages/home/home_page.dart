@@ -12,12 +12,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  ApiServices apiServices = ApiServices();
-  List<Movie> movies = [];
+  final ApiServices apiServices = ApiServices();
+  late Future<List<Movie>> nowPlayingMovies;
 
   @override
   void initState() {
-    movies = apiServices.getMovies();
+    nowPlayingMovies = apiServices.getMovies();
     super.initState();
   }
 
@@ -43,8 +43,23 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              NowPlayingList(movies: movies),
-              SizedBox(
+              FutureBuilder(
+                future: nowPlayingMovies,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text(snapshot.error.toString()),
+                    );
+                  }
+                  return NowPlayingList(movies: snapshot.data!);
+                },
+              ),
+              const SizedBox(
                 height: 20,
               ),
               const Padding(
@@ -58,9 +73,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              MoviesHorizontalList(
-                movies: movies,
-              ),
+              const MoviesHorizontalList(),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: Text(
@@ -72,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              MoviesHorizontalList(movies: movies),
+              const MoviesHorizontalList(),
               const SizedBox(
                 height: 20,
               ),
