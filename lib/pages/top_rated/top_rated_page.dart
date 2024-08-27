@@ -38,7 +38,7 @@ class _TopRatedPageState extends State<TopRatedPage> {
             }
             if (snapshot.hasError) {
               return Center(
-                child: Text(snapshot.error.toString()),
+                child: Text(snapshot.error.toString(),style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.red)),
               );
             }
             List<Movie> moviesList = snapshot.data!;

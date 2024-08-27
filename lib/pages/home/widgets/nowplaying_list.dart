@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/models/movie_model.dart';
 import 'package:movie_app/widgets/custom_card_thumbnail.dart';
+import 'package:movie_app/widgets/custom_card_thumbnail_placeholder.dart';
 
 class NowPlayingList extends StatefulWidget {
   final List<Movie> movies;
@@ -26,8 +27,11 @@ class _NowPlayingListState extends State<NowPlayingList> {
               });
             },
             controller: _pageController,
-            itemCount: widget.movies.length,
+            itemCount: widget.movies.isEmpty ? 2 : widget.movies.length ,
             itemBuilder: (context, index) {
+              if(widget.movies.isEmpty){
+                return const CustomCardThumbnailPlaceholder();
+              }
               return CustomCardThumbnail(
                 imageAsset: widget.movies[index].posterPath,
               );

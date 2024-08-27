@@ -48,12 +48,12 @@ class _HomePageState extends State<HomePage> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
-                      child: CircularProgressIndicator(),
+                      child: NowPlayingList(movies: [],),
                     );
                   }
                   if (snapshot.hasError) {
                     return Center(
-                      child: Text(snapshot.error.toString()),
+                      child: Text(snapshot.error.toString(), style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.red)),
                     );
                   }
                   return NowPlayingList(movies: snapshot.data!);
@@ -73,7 +73,21 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              const MoviesHorizontalList(),
+             
+              FutureBuilder(
+                future: nowPlayingMovies,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const MoviesHorizontalList(movies: []);
+                  }
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text(snapshot.error.toString(),style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.red)),
+                    );
+                  }
+                  return  MoviesHorizontalList(movies: snapshot.data!);
+                },
+              ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: Text(
@@ -85,7 +99,20 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              const MoviesHorizontalList(),
+              FutureBuilder(
+                future: nowPlayingMovies,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                         return const MoviesHorizontalList(movies: []); 
+                  }
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text(snapshot.error.toString(),style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.red)),
+                    );
+                  }
+                  return  MoviesHorizontalList(movies: snapshot.data!);
+                },
+              ),
               const SizedBox(
                 height: 20,
               ),

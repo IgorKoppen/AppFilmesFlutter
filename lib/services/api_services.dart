@@ -1,3 +1,4 @@
+import 'package:movie_app/exception/http_exception.dart';
 import 'package:movie_app/models/movie_model.dart';
 
 class ApiServices {
@@ -5,6 +6,8 @@ class ApiServices {
     // Cria a lista de filmes
 
     await Future.delayed(const Duration(seconds: 5));
+   
+   //throw HttpException("Servidor offline!");
     final movie1 = Movie(
       adult: false,
       backdropPath: "/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg",
