@@ -18,7 +18,7 @@ class _TopRatedPageState extends State<TopRatedPage> {
 
   @override
   void initState() {
-    movies = apiServices.getMovies();
+    movies = apiServices.getTopRated();
     super.initState();
   }
 
@@ -49,6 +49,7 @@ class _TopRatedPageState extends State<TopRatedPage> {
               },
             );
           },
-        ));
+        )
+        );
   }
 }

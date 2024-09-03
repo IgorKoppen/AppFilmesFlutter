@@ -23,9 +23,12 @@ class TopRatedMovie extends StatelessWidget {
             height: 140,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
+  
               image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage('$imageUrl${movie.posterPath}')),
+                  
+                  image: NetworkImage(
+                    '$imageUrl${movie.posterPath}')),
             ),
           ),
           const SizedBox(

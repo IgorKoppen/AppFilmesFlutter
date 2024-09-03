@@ -1,75 +1,123 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:movie_app/env/api.dart';
 import 'package:movie_app/exception/http_exception.dart';
 import 'package:movie_app/models/movie_model.dart';
+import 'package:http/http.dart' as http;
 
 class ApiServices {
-  Future<List<Movie>> getMovies() async {
-    // Cria a lista de filmes
 
-    await Future.delayed(const Duration(seconds: 5));
-   
-   //throw HttpException("Servidor offline!");
-    final movie1 = Movie(
-      adult: false,
-      backdropPath: "/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg",
-      genreIds: [28, 35, 878],
-      id: 533535,
-      originalLanguage: "en",
-      originalTitle: "Deadpool VS Wolverine",
-      overview: "Deadpool & Wolverine",
-      popularity: 13902.556,
-      posterPath: "/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg",
-      releaseDate: DateTime.parse("2024-07-24"),
-      title: "Deadpool VS Wolverine",
-      video: false,
-      voteAverage: 7.858,
-      voteCount: 1721,
-    );
+  static const String baseURL = "https://api.themoviedb.org/3";
 
-    final movie2 = Movie(
-      adult: false,
-      backdropPath: "/lgkPzcOSnTvjeMnuFzozRO5HHw1.jpg",
-      genreIds: [28, 35, 878],
-      id: 533535,
-      originalLanguage: "en",
-      originalTitle: "Despicable Me 4",
-      overview: "Despicable Me 4",
-      popularity: 13902.556,
-      posterPath: "/wWba3TaojhK7NdycRhoQpsG0FaH.jpg",
-      releaseDate: DateTime.parse("2024-07-24"),
-      title: "Despicable Me 4",
-      video: false,
-      voteAverage: 7.858,
-      voteCount: 1721,
-    );
+ Future<List<Movie>> getPopularMovies() async {
+  final response = await http.get(
+    Uri.parse('$baseURL/movie/popular?language=pt-BR&page=1'),
+    headers: {
+      HttpHeaders.authorizationHeader: Constants.apiMovieBase,
+    },
+  );
 
-    final movie3 = Movie(
-      adult: false,
-      backdropPath: "/stKGOm8UyhuLPR9sZLjs5AkmncA.jpg",
-      genreIds: [28, 35, 878],
-      id: 533535,
-      originalLanguage: "en",
-      originalTitle: "Inside Out 2",
-      overview: "Inside Out 2e",
-      popularity: 13902.556,
-      posterPath: "/stKGOm8UyhuLPR9sZLjs5AkmncA.jpg",
-      releaseDate: DateTime.parse("2024-07-24"),
-      title: "Inside Out 2",
-      video: false,
-      voteAverage: 7.858,
-      voteCount: 1721,
-    );
-
-    List<Movie> movies = [
-      movie1,
-      movie2,
-      movie3,
-      movie1,
-      movie2,
-      movie3,
-      movie1,
-      movie2,
-      movie3
-    ];
-    return movies;
+  if (response.statusCode == HttpStatus.ok) {
+    return parseMovies(response.body);
+  } else {
+    throw HttpException('Falha ao carregar os filmes!');
   }
+}
+
+
+Future<List<Movie>> getNowPlaying() async {
+  final response = await http.get(
+    Uri.parse('$baseURL/movie/now_playing?language=pt-BR&page=1'),
+    headers: {
+      HttpHeaders.authorizationHeader: Constants.apiMovieBase,
+    },
+  );
+
+  if (response.statusCode == HttpStatus.ok) {
+    return parseMovies(response.body);
+  } else {
+    throw HttpException('Falha ao carregar os filmes!');
+  }
+}
+
+Future<List<Movie>> getTopRated() async {
+  final response = await http.get(
+    Uri.parse('$baseURL/movie/top_rated?language=pt-BR&page=1'),
+    headers: {
+      HttpHeaders.authorizationHeader: Constants.apiMovieBase,
+    },
+  );
+
+  if (response.statusCode == HttpStatus.ok) {
+    return parseMovies(response.body);
+  } else {
+    throw HttpException('Falha ao carregar os filmes!');
+  }
+}
+
+Future<List<Movie>> getUpcoming() async {
+  final response = await http.get(
+    Uri.parse('$baseURL/movie/upcoming?language=pt-BR&page=1'),
+    headers: {
+      HttpHeaders.authorizationHeader: Constants.apiMovieBase,
+    },
+  );
+
+  if (response.statusCode == HttpStatus.ok) {
+    return parseMovies(response.body);
+  } else {
+    throw HttpException('Falha ao carregar os filmes!');
+  }
+}
+Future<List<Movie>> searchMovies(String query) async {
+  query = cleanQuery(query);                                                                                                                                                                                                            
+  final response = await http.get(
+    Uri.parse('$baseURL/search/movie?query=$query&include_adult=true&language=pt_BR&page=1'),
+    headers: {
+      HttpHeaders.authorizationHeader: Constants.apiMovieBase,
+    },
+  );
+
+  if (response.statusCode == HttpStatus.ok) {
+    return parseMovies(response.body);
+  } else {
+    throw HttpException('Falha ao carregar os filmes!');
+  }
+}
+
+
+String cleanQuery(String query) {
+  final Map<String, String> replacements = {
+    " ": "%20",
+    "#": "%23",
+    "&": "%26",
+    "ã": "%C3%A3",
+    "ç": "%C3%A7",
+    "á": "%C3%A1",
+    "é": "%C3%A9",
+    "í": "%C3%AD",
+    "ó": "%C3%B3",
+    "ú": "%C3%BA",
+    "â": "%C3%A2",
+    "ê": "%C3%AA",
+    "î": "%C3%AE",
+    "ô": "%C3%B4",
+    "û": "%C3%BB",
+    "ü": "%C3%BC",
+    "ñ": "%C3%B1"
+  };
+
+  replacements.forEach((key, value) {
+    query = query.replaceAll(key, value);
+  });
+
+  return query;
+}
+
+List<Movie> parseMovies(String responseBody) {
+  final parsed = jsonDecode(responseBody)['results'].cast<Map<String, dynamic>>();
+  return parsed.map<Movie>((json) => Movie.fromJson(json)).toList();
+}
+
 }
