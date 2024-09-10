@@ -24,6 +24,8 @@ class CustomCardThumbnail extends StatelessWidget {
             '$imageUrl$imageAsset',
           ),
           fit: BoxFit.cover,
+          onError: (exception, stackTrace) =>
+              const AssetImage("images/netflix.png"),
         ),
       ),
       margin: const EdgeInsets.only(left: 15, right: 15, top: 20, bottom: 30),

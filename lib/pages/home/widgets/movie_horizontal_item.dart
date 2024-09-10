@@ -33,6 +33,8 @@ class MovieHorizontalItem extends StatelessWidget {
             image: DecorationImage(
               fit: BoxFit.cover,
               image: NetworkImage('$imageUrl${movie.posterPath}'),
+              onError: (exception, stackTrace) =>
+                  const AssetImage("images/netflix.png"),
             ),
           ),
         ),

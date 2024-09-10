@@ -22,6 +22,20 @@ class _TopRatedPageState extends State<TopRatedPage> {
     super.initState();
   }
 
+  getMoreMovies(int page) {
+    setState(() {
+      Future<List<Movie>> moreMoviesFuture =
+          apiServices.getTopRated(page: page);
+      List<Movie> moreMovies = [];
+      moreMoviesFuture.then((value) => moreMovies = value);
+      movies.then(
+        (movies) {
+          movies.addAll(moreMovies);
+        },
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +52,9 @@ class _TopRatedPageState extends State<TopRatedPage> {
             }
             if (snapshot.hasError) {
               return Center(
-                child: Text(snapshot.error.toString(),style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.red)),
+                child: Text(snapshot.error.toString(),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.red)),
               );
             }
             List<Movie> moviesList = snapshot.data!;
@@ -49,7 +65,6 @@ class _TopRatedPageState extends State<TopRatedPage> {
               },
             );
           },
-        )
-        );
+        ));
   }
 }

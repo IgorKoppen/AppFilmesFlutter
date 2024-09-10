@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Movie {
   bool adult;
   String backdropPath;
@@ -49,5 +47,4 @@ class Movie {
         voteAverage: json["vote_average"]?.toDouble() ?? 0,
         voteCount: json["vote_count"] ?? 0,
       );
-      
 }
