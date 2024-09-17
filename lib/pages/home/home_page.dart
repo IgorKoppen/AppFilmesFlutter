@@ -16,12 +16,13 @@ class _HomePageState extends State<HomePage> {
   late Future<List<Movie>> nowPlayingMovies;
   late Future<List<Movie>> upcomingMovies;
   late Future<List<Movie>> popularMovies;
-
+  
   @override
   void initState() {
     nowPlayingMovies = apiServices.getNowPlaying();
     upcomingMovies = apiServices.getUpcoming();
     popularMovies = apiServices.getPopularMovies();
+    
     super.initState();
   }
 
@@ -60,6 +61,7 @@ class _HomePageState extends State<HomePage> {
                       child: Text(snapshot.error.toString(), style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.red)),
                     );
                   }
+              
                   return NowPlayingList(movies: snapshot.data!);
                 },
               ),

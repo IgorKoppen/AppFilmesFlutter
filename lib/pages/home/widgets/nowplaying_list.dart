@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/models/movie_datails.dart';
 import 'package:movie_app/models/movie_model.dart';
+import 'package:movie_app/services/api_services.dart';
 import 'package:movie_app/widgets/custom_card_thumbnail.dart';
 import 'package:movie_app/widgets/custom_card_thumbnail_placeholder.dart';
 
@@ -15,6 +17,7 @@ class _NowPlayingListState extends State<NowPlayingList> {
   final PageController _pageController = PageController(viewportFraction: 0.9);
   final indicatorLimit = 6;
   int currentPage = 0;
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,7 @@ class _NowPlayingListState extends State<NowPlayingList> {
                 currentPage = page;
               });
             },
+
             controller: _pageController,
             itemCount: widget.movies.isEmpty ? 0 : indicatorLimit,
             itemBuilder: (context, index) {

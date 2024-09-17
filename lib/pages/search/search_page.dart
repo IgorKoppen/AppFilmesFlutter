@@ -32,7 +32,7 @@ class _SearchPageState extends State<SearchPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            mainAxisSize: MainAxisSize.min, // Set mainAxisSize to min
+            mainAxisSize: MainAxisSize.min, 
             children: [
               const SizedBox(
                 height: 10,
@@ -83,9 +83,9 @@ class _SearchPageState extends State<SearchPage> {
                   }
                   List<Movie> moviesList = snapshot.data!;
                   return Flexible(
-                    fit: FlexFit.loose, // Use Flexible with FlexFit.loose
+                    fit: FlexFit.loose, 
                     child: ListView.builder(
-                      shrinkWrap: true, // Ensure ListView is shrink-wrapped
+                      shrinkWrap: true, 
                       itemCount: moviesList.length,
                       itemBuilder: (context, index) {
                         return MovieSearch(movie: moviesList[index]);

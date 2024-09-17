@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:movie_app/env/api.dart';
 import 'package:movie_app/exception/http_exception.dart';
+import 'package:movie_app/models/movie_datails.dart';
 import 'package:movie_app/models/movie_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -69,6 +70,21 @@ class ApiServices {
     }
   }
 
+  Future<MovieDetails> getDetailsById(int id) async{
+       final response = await http.get(
+      Uri.parse('$baseURL/movie/$id?language=pt_BR'),
+      headers: {
+        HttpHeaders.authorizationHeader: Constants.apiMovieBase,
+      },
+    );
+    if (response.statusCode == HttpStatus.ok) {
+      return parseMovieDetails(response.body);
+    } else {
+      throw HttpException('Falha ao carrega o filmes!');
+    }
+  }
+
+
   Future<List<Movie>> searchMovies({int page = 1, String query = ""}) async {
     final uri =
         '$baseURL/search/movie?query=$query&include_adult=true&language=pt_BR&page=$page';
@@ -86,6 +102,11 @@ class ApiServices {
       throw HttpException('Falha ao carregar os filmes!');
     }
   }
+ MovieDetails parseMovieDetails(String responseBody) {
+  final parsed = jsonDecode(responseBody) as Map<String, dynamic>;
+  return MovieDetails.fromJson(parsed);
+}
+
 
   List<Movie> parseMovies(String responseBody) {
     final parsed =

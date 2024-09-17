@@ -25,13 +25,13 @@ class MovieSearch extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
             ),
             child: FadeInImage(
-              image: NetworkImage('$imageUrl${movie.posterPath}'),
-              fit: BoxFit.cover,
-              placeholder: const AssetImage("images/netflix.png"),
-              imageErrorBuilder: (context, error, stackTrace) {
-                return const Image(image: AssetImage("images/netflix.png"));
-              },
-            ),
+  image: NetworkImage('$imageUrl${movie.posterPath}'),
+  fit: BoxFit.cover,
+  placeholder: const AssetImage("images/netflix.png"),
+  imageErrorBuilder: (context, error, stackTrace) {
+    return const Image(image: AssetImage("images/netflix.png"));
+  },
+),
           ),
           const SizedBox(
             width: 10.0,
