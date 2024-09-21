@@ -189,9 +189,10 @@ class MovieDetailsPage extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 25),
-                        if (similarButtonShow)
+                       
                           Row(
                             children: [
+                              if (similarButtonShow)
                               CustomButton(
                                 text: 'Similar Movies',
                                 icon: Icons.search,
