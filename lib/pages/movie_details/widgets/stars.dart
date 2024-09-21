@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class StarsBuild extends StatelessWidget {
-  final double rating;
+  final num rating; 
   const StarsBuild({super.key, required this.rating});
 
- Widget buildStarRating(double rating) {
-    int fullStars = rating ~/ 1;
+  Widget buildStarRating(num rating) {
+    int fullStars = rating ~/ 1; 
     return Row(
       children: List.generate(10, (index) {
         if (index < fullStars) {

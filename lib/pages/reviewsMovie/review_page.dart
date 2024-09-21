@@ -82,8 +82,7 @@ class _ReviewPageState extends State<ReviewPage> {
                                   color: Colors.white,
                                 ),
                               ),
-                              if(rating != null)
-                              StarsBuild(rating: rating.toDouble()),
+                              if(rating != null) StarsBuild(rating: rating),
                               const SizedBox(height: 6),
                               Text(
                                 review.content,

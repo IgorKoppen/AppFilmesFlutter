@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/models/movie_model.dart';
-import 'package:movie_app/models/movie_page_model.dart';
 import 'package:movie_app/pages/search/widgets/movie_search.dart';
 import 'package:movie_app/services/api_services.dart';
 

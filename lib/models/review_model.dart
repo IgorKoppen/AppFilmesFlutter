@@ -2,7 +2,7 @@ class AuthorDetails {
   final String name;
   final String username;
   final String? avatarPath;
-  final int? rating;
+  final num? rating;
 
   AuthorDetails({
     required this.name,
@@ -16,7 +16,7 @@ class AuthorDetails {
       name: json['name'] ?? '',
       username: json['username'] ?? '',
       avatarPath: json['avatar_path'],
-      rating: json['rating'] != null ? json['rating'] as int? : null,
+      rating: json['rating'] != null ? json['rating'] as num? : null,
     );
   }
 }
