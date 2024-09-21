@@ -1,18 +1,18 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:movie_app/models/movie_model.dart';
 import 'package:movie_app/pages/top_rated/widgets/top_rated_movie.dart';
 import 'package:movie_app/services/api_services.dart';
 
-class TopRatedPage extends StatefulWidget {
-  const TopRatedPage({super.key});
+class SimilarPage extends StatefulWidget {
+  final int movieId;
+
+  const SimilarPage({super.key, required this.movieId});
 
   @override
-  State<TopRatedPage> createState() => _TopRatedPageState();
+  State<SimilarPage> createState() => _SimilarPageState();
 }
 
-class _TopRatedPageState extends State<TopRatedPage> {
+class _SimilarPageState extends State<SimilarPage> {
   final ApiServices apiServices = ApiServices();
   List<Movie> moviesList = [];
   int currentPage = 1; 
@@ -41,7 +41,7 @@ class _TopRatedPageState extends State<TopRatedPage> {
     });
 
     try {
-      final moviePage = await apiServices.getTopRated(page: currentPage);
+      final moviePage = await apiServices.similarMoviesByMovieId(page: currentPage, movieId: widget.movieId);
       setState(() {
         moviesList.addAll(moviePage.results);
         currentPage++;
@@ -83,7 +83,7 @@ class _TopRatedPageState extends State<TopRatedPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Top Rated Movies'),
+        title: const Text('Similar Movies'),
       ),
       body: moviesList.isEmpty && isLoading
           ? const Center(
@@ -98,7 +98,7 @@ class _TopRatedPageState extends State<TopRatedPage> {
                     child: CircularProgressIndicator(),
                   );
                 }
-                return MovieCard(movie: moviesList[index]);
+                return MovieCard(movie: moviesList[index],isToShowSimilarButton: false,);
               },
             ),
     );

@@ -1,18 +1,18 @@
-class MovieDetails {
+class MovieDetails { 
   bool adult;
-  String backdropPath;
+  String? backdropPath;
   dynamic belongsToCollection;
   int budget;
   List<Genre> genres;
-  String homepage;
+  String? homepage;
   int id;
-  String imdbId;
+  String? imdbId;
   List<String> originCountry;
   String originalLanguage;
   String originalTitle;
   String overview;
   double popularity;
-  String posterPath;
+  String? posterPath;
   List<ProductionCompany> productionCompanies;
   List<ProductionCountry> productionCountries;
   String releaseDate;
@@ -20,7 +20,7 @@ class MovieDetails {
   int runtime;
   List<SpokenLanguage> spokenLanguages;
   String status;
-  String tagline;
+  String? tagline;
   String title;
   bool video;
   double voteAverage;
@@ -28,19 +28,19 @@ class MovieDetails {
 
   MovieDetails({
     required this.adult,
-    required this.backdropPath,
+    this.backdropPath,
     this.belongsToCollection,
     required this.budget,
     required this.genres,
-    required this.homepage,
+    this.homepage,
     required this.id,
-    required this.imdbId,
+    this.imdbId,
     required this.originCountry,
     required this.originalLanguage,
     required this.originalTitle,
     required this.overview,
     required this.popularity,
-    required this.posterPath,
+    this.posterPath,
     required this.productionCompanies,
     required this.productionCountries,
     required this.releaseDate,
@@ -48,7 +48,7 @@ class MovieDetails {
     required this.runtime,
     required this.spokenLanguages,
     required this.status,
-    required this.tagline,
+    this.tagline,
     required this.title,
     required this.video,
     required this.voteAverage,

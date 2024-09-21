@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/models/movie_model.dart';
+import 'package:movie_app/models/movie_page_model.dart';
 import 'package:movie_app/pages/home/widgets/movies_horizontal_list.dart';
 import 'package:movie_app/pages/home/widgets/nowplaying_list.dart';
 import 'package:movie_app/services/api_services.dart';
@@ -13,9 +13,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final ApiServices apiServices = ApiServices();
-  late Future<List<Movie>> nowPlayingMovies;
-  late Future<List<Movie>> upcomingMovies;
-  late Future<List<Movie>> popularMovies;
+  late Future<MoviePageModel> nowPlayingMovies;
+  late Future<MoviePageModel> upcomingMovies;
+  late Future<MoviePageModel> popularMovies;
   
   @override
   void initState() {
@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                     );
                   }
               
-                  return NowPlayingList(movies: snapshot.data!);
+                  return NowPlayingList(movies: snapshot.data!.results);
                 },
               ),
               const SizedBox(
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                       child: Text(snapshot.error.toString(),style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.red)),
                     );
                   }
-                  return  MoviesHorizontalList(movies: snapshot.data!);
+                  return  MoviesHorizontalList(movies: snapshot.data!.results);
                 },
               ),
               const Padding(
@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                       child: Text(snapshot.error.toString(),style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.red)),
                     );
                   }
-                  return  MoviesHorizontalList(movies: snapshot.data!);
+                  return  MoviesHorizontalList(movies: snapshot.data!.results);
                 },
               ),
               const SizedBox(

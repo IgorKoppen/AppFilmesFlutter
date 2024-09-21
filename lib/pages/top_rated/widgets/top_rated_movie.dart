@@ -1,26 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:movie_app/common/utils.dart';
 import 'package:movie_app/models/movie_model.dart';
-import 'package:movie_app/pages/movie_details/detailsSheet.dart';
+import 'package:movie_app/pages/movie_details/details_sheet.dart';
 
-class TopRatedMovie extends StatelessWidget {
-  const TopRatedMovie({
+class MovieCard extends StatelessWidget {
+    final Movie movie;
+    final bool isToShowSimilarButton;
+  const MovieCard({
     super.key,
     required this.movie,
+    this.isToShowSimilarButton = true
   });
 
-  final Movie movie;
+
 void showDetailsSheet(BuildContext context, int movieId) {
     showModalBottomSheet(
       context: context,
        isScrollControlled: true,
-      builder: (context) => DetailsSheet(movieId: movieId),
+      builder: (context) => DetailsSheet(movieId: movieId,isToShowSimilarButton: isToShowSimilarButton,),
     );
   }
   
   @override
   Widget build(BuildContext context) {
+      const String baseUrl = 'https://image.tmdb.org/t/p/w500';
+    final String fullImageUrl = movie.posterPath.isNotEmpty 
+        ? '$baseUrl${movie.posterPath}' 
+        : 'images/netflix.png'; 
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
       child: GestureDetector(
@@ -35,7 +42,7 @@ void showDetailsSheet(BuildContext context, int movieId) {
                 borderRadius: BorderRadius.circular(15),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage('$imageUrl${movie.posterPath}'),
+                  image: NetworkImage(fullImageUrl),
                   onError: (exception, stackTrace) =>
                       const AssetImage("images/netflix.png"),
                 ),

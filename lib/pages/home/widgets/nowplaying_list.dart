@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/models/movie_datails.dart';
 import 'package:movie_app/models/movie_model.dart';
-import 'package:movie_app/services/api_services.dart';
 import 'package:movie_app/widgets/custom_card_thumbnail.dart';
 import 'package:movie_app/widgets/custom_card_thumbnail_placeholder.dart';
 
@@ -39,6 +37,7 @@ class _NowPlayingListState extends State<NowPlayingList> {
                 return const CustomCardThumbnailPlaceholder();
               }
               return CustomCardThumbnail(
+                movieId: widget.movies[index].id,
                 imageAsset: widget.movies[index].posterPath,
               );
             },
