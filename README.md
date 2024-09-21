@@ -48,21 +48,21 @@ Este aplicativo utiliza a [The Movie Database (TMDb) API](https://www.themoviedb
 ## Exemplos
 
 ### Tela Principal
-![Tela Principal](https://raw.githubusercontent.com/IgorKoppen/MovieApp/refs/heads/main/DocsImagens/Home.png?token=GHSAT0AAAAAACWZUJFENBVYXHOCWWT55CDCZXOJOQQ)
-![Tela Principal](https://raw.githubusercontent.com/IgorKoppen/MovieApp/refs/heads/main/DocsImagens/Home2.png?token=GHSAT0AAAAAACWZUJFFRGI3D3TSNND2CAJQZXOJSBA)
+![Tela Principal](DocsImagens/Home.png)
+![Tela Principal](DocsImagens/Home2.png)
 
 ### Detalhes do Filme
-![Detalhes do Filme](https://raw.githubusercontent.com/IgorKoppen/MovieApp/refs/heads/main/DocsImagens/Details%201.png?token=GHSAT0AAAAAACWZUJFEDNDNUXK76YY663JEZXOJPLQ)
-![Detalhes do Filme](https://raw.githubusercontent.com/IgorKoppen/MovieApp/refs/heads/main/DocsImagens/Details2.png?token=GHSAT0AAAAAACWZUJFEMFU7KLAS7RY5NSZYZXOJQAA)
+![Detalhes do Filme](DocsImagens/Details%201.png)
+![Detalhes do Filme](DocsImagens/Details2.png)
 
 ### Busca de Filme
-![Busca de Filme](https://raw.githubusercontent.com/IgorKoppen/MovieApp/refs/heads/main/DocsImagens/Search.png?token=GHSAT0AAAAAACWZUJFENMCJW62E6PDJZ2QGZXOJUMQ)
+![Busca de Filme](DocsImagens/Search.png)
 
 ### Top Rated Movies
-![Top Rated Movies](https://raw.githubusercontent.com/IgorKoppen/MovieApp/refs/heads/main/DocsImagens/TopRated.png?token=GHSAT0AAAAAACWZUJFESOSTMZJ27GB4SCIKZXOJVHA)
+![Top Rated Movies](DocsImagens/TopRated.png)
 
 ### Reviews
-![Reviews de usuários](https://raw.githubusercontent.com/IgorKoppen/MovieApp/refs/heads/main/DocsImagens/Reviews.png?token=GHSAT0AAAAAACWZUJFERDBBJ2MQT6T5562UZXOJT3A)
+![Reviews de usuários](DocsImagens/Reviews.png)
 
 ### Similar Movies
-![Filmes similares](https://raw.githubusercontent.com/IgorKoppen/MovieApp/refs/heads/main/DocsImagens/SimilarMovies.png?token=GHSAT0AAAAAACWZUJFFQIMBMMGZXW3QXLMMZXOJUZA)
+![Filmes similares](DocsImagens/SimilarMovies.png)
